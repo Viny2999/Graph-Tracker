@@ -29,9 +29,4 @@ public class GraphController {
     public ResponseEntity<GraphArray> create(@RequestBody GraphArray data) {
         return graphService.create(data);
     }
-
-    @PostMapping(path = {"/{id}/from/{town1}/to/{town2}"})
-    public ResponseEntity getAvailableRoute(@PathVariable long id, @PathVariable String town1, @PathVariable String town2, @RequestParam(required = false) Long maxStops) {
-        return graphService.getAvailableRoute(id, town1, town2, maxStops);
-    }
 }

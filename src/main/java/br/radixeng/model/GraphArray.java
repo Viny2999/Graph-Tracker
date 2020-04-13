@@ -3,13 +3,6 @@ package br.radixeng.model;
 import javax.persistence.*;
 import java.util.List;
 
-import lombok.Data;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
 public class GraphArray {
     @Id
@@ -18,4 +11,12 @@ public class GraphArray {
 
     @OneToMany(cascade= CascadeType.ALL)
     private List<Graph> data;
+
+    public List<Graph> getData() {
+        return data;
+    }
+
+    public void setData(List<Graph> data) {
+        this.data = data;
+    }
 }
