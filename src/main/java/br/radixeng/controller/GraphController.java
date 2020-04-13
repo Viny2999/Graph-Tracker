@@ -16,7 +16,7 @@ public class GraphController {
     private GraphService graphService;
 
     @GetMapping
-    public List findAll() {
+    public ResponseEntity<List> findAll() {
         return graphService.findAll();
     }
 
