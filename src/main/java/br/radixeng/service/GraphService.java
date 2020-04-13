@@ -55,14 +55,11 @@ public class GraphService {
 
     private String executeDijkstra(GraphArray graphArray, String v1, String v2) {
         Grafo grafo = prepareDijkstra(graphArray, v1, v2);
+        DijkstraService dijkstraService = new DijkstraService();
+        List<Vertice> minimumRoute = dijkstraService.minimumRoute(grafo, grafo.encontrarVertice(v1), grafo.encontrarVertice(v2));
 
-        Dijkstra dijkstra = new Dijkstra();
-
-        List<Vertice> res = dijkstra.minimumRoute(grafo, grafo.encontrarVertice(v1), grafo.encontrarVertice(v2));
-
-        int distance = res.get(res.size() - 1).getDistancia();
-
-        List<String> paths = res.stream().map(v -> v.getDescricao()).collect(Collectors.toList());
+        int distance = minimumRoute.get(minimumRoute.size() - 1).getDistancia();
+        List<String> paths = minimumRoute.stream().map(v -> v.getDescricao()).collect(Collectors.toList());
 
         return mountResponse(distance, paths);
     }
@@ -107,8 +104,7 @@ public class GraphService {
         return grafo;
     }
 
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
-    {
+    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
