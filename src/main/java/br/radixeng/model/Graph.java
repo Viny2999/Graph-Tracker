@@ -1,16 +1,16 @@
 package br.radixeng.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import lombok.*;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class NavegacaoInfo {
+public class Graph {
 
     @Id @GeneratedValue
     private Long id;
