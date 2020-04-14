@@ -114,7 +114,7 @@ public class DijkstraService {
         return sb.toString();
     }
 
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }

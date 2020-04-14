@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,8 +52,11 @@ public class GraphService {
         try {
             Optional<GraphArray> graphOptional = repository.findById(id);
             if(graphOptional.isPresent()) {
+                List<Graph> graphDistinct = graphOptional.get().getData().stream().filter(dijkstraService.distinctByKey(v -> v.getSource())).collect(Collectors.toList());
+                int size = graphDistinct.size();
+                Path path = new Path(size);
 
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(path.findAllPaths(graphOptional.get(), graphDistinct, town1, town2, maxStops));
             } else {
                 return ResponseEntity.notFound().build();
             }
