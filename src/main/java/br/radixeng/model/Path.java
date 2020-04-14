@@ -72,7 +72,7 @@ public class Path {
         sb.append("{\"routes\": [");
         for (String path : paths) {
             sb.append("{\"routes\": \"" + path + "\",");
-            sb.append("\"stops\": " + (path.length() - 1) + "}");
+            sb.append("\"stops\": " + (path.length() - 1) + "},");
         }
         sb = sb.deleteCharAt(sb.toString().length() -1);
         sb.append("]}");
