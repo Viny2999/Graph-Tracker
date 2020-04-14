@@ -13,7 +13,7 @@ public class DistanceController {
     private GraphService graphService;
 
     @PostMapping(path = {"/{id}/from/{town1}/to/{town2}"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAvailableRoute(@PathVariable long id, @PathVariable String town1, @PathVariable String town2) {
+    public ResponseEntity minimumRoute(@PathVariable long id, @PathVariable String town1, @PathVariable String town2) {
         return graphService.minimumRoute(id, town1, town2);
     }
 }

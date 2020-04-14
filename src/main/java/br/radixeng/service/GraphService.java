@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -52,6 +49,20 @@ public class GraphService {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(graphResponse);
+    }
+
+    public ResponseEntity getAvailableRoute(long id, String town1, String town2, Long maxStops) {
+        try {
+            Optional<GraphArray> graphOptional = repository.findById(id);
+            if(graphOptional.isPresent()) {
+
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     public ResponseEntity minimumRoute(long id, String town1, String town2) {
