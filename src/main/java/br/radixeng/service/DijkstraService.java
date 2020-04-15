@@ -15,12 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class DijkstraService {
 
-    List<Vertice> menorCaminho = new ArrayList<Vertice>();
-    Vertice verticeCaminho = new Vertice();
-    Vertice atual = new Vertice();
-    Vertice vizinho = new Vertice();
-    List<Vertice> naoVisitados = new ArrayList<Vertice>();
-
     public String executeDijkstra(GraphArray graphArray, String v1, String v2) {
         Grafo grafo = prepareDijkstra(graphArray, v1, v2);
         List<Vertice> minimumRoute = minimumRoute(grafo, grafo.encontrarVertice(v1), grafo.encontrarVertice(v2));
@@ -32,7 +26,6 @@ public class DijkstraService {
     }
 
     private Grafo prepareDijkstra(GraphArray graphArray, String v1, String v2) {
-        List<Vertice> verticesAux = new ArrayList<Vertice>();
         Grafo grafo = new Grafo();
         Grafo grafoAux = new Grafo();
         List<Graph> sourcesAux = graphArray.getData().stream().filter(distinctByKey(v -> v.getSource())).collect(Collectors.toList());
@@ -61,6 +54,12 @@ public class DijkstraService {
     }
 
     private List<Vertice> minimumRoute(Grafo grafo, Vertice v1, Vertice v2) {
+        List<Vertice> menorCaminho = new ArrayList<Vertice>();
+        Vertice verticeCaminho = new Vertice();
+        Vertice atual = new Vertice();
+        Vertice vizinho = new Vertice();
+        List<Vertice> naoVisitados = new ArrayList<Vertice>();
+
         menorCaminho.add(v1);
 
 		for (int i = 0; i < grafo.getVertices().size(); i++) {
@@ -69,13 +68,13 @@ public class DijkstraService {
 			} else {
 				grafo.getVertices().get(i).setDistancia(9999);
 			}
-			this.naoVisitados.add(grafo.getVertices().get(i));
+			naoVisitados.add(grafo.getVertices().get(i));
 		}
 
 		Collections.sort(naoVisitados);
 
-		while (!this.naoVisitados.isEmpty()) {
-            atual = this.naoVisitados.get(0);
+		while (!naoVisitados.isEmpty()) {
+            atual = naoVisitados.get(0);
 			for (int i = 0; i < atual.getArestas().size(); i++) {
 				vizinho = atual.getArestas().get(i).getDestino();
 				if (!vizinho.verificarVisita()) {
@@ -97,7 +96,7 @@ public class DijkstraService {
 				}
 			}
 			atual.visitar();
-			this.naoVisitados.remove(atual);
+			naoVisitados.remove(atual);
 			Collections.sort(naoVisitados);
 		}
 		return menorCaminho;

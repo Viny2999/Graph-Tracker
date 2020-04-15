@@ -55,7 +55,6 @@ public class GraphService {
                 List<Graph> graphDistinct = graphOptional.get().getData().stream().filter(dijkstraService.distinctByKey(v -> v.getSource())).collect(Collectors.toList());
                 int size = graphDistinct.size();
                 Path path = new Path(size);
-
                 return ResponseEntity.ok(path.findAllPaths(graphOptional.get(), graphDistinct, town1, town2, maxStops));
             } else {
                 return ResponseEntity.notFound().build();
