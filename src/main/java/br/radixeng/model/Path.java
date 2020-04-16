@@ -2,13 +2,15 @@ package br.radixeng.model;
 
 
 import br.radixeng.service.DijkstraService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Path {
 
@@ -35,7 +37,7 @@ public class Path {
         adjList[u].add(v);
     }
 
-    public String findAllPaths(GraphArray graphArray, List<Graph> graphDistinct, String v1, String v2, Long maxStops) {
+    public String findAllPaths(GraphArray graphArray, List<Graph> graphDistinct, String v1, String v2, Long maxStops) throws JSONException {
         Map<String, Integer> mapInteger = new HashMap<>();
         Map<Integer, String> mapString = new HashMap<>();
 
@@ -50,10 +52,10 @@ public class Path {
 
         printAllPaths(mapInteger.get(v1), mapInteger.get(v2), mapString);
 
-        return mountResponse(pathsFound, maxStops);
+        return jsonParse(pathsFound, maxStops);
     }
 
-    private String mountResponse(List<String> paths, Long maxStops) {
+    private String jsonParse(List<String> paths, Long maxStops) throws JSONException {
         List<String> pathExcluded = new ArrayList<>();
 
         if(maxStops != null) {
@@ -68,15 +70,18 @@ public class Path {
             paths.remove(path);
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"routes\": [");
+        JSONObject responseJson = new JSONObject();
+        JSONArray routesJson = new JSONArray();
         for (String path : paths) {
-            sb.append("{\"routes\": \"" + path + "\",");
-            sb.append("\"stops\": " + (path.length() - 1) + "},");
+            JSONObject route = new JSONObject();
+            route.put("route", path);
+            route.put("stops", (path.length() - 1));
+            routesJson.put(route);
         }
-        sb = sb.deleteCharAt(sb.toString().length() -1);
-        sb.append("]}");
-        return sb.toString();
+
+        responseJson.put("routes", routesJson);
+
+        return responseJson.toString();
     }
 
     private void printAllPaths(int s, int d, Map<Integer, String> map) {
