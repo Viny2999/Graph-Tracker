@@ -1,4 +1,4 @@
-package br.radixeng.model;
+package br.graph.model;
 
 import javax.persistence.*;
 import java.util.List;

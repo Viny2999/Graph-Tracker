@@ -1,4 +1,4 @@
-package br.radixeng;
+package br.graph;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

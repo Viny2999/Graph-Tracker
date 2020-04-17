@@ -1,4 +1,4 @@
-package br.radixeng.model;
+package br.graph.model;
 
 import java.util.ArrayList;
 import java.util.List;

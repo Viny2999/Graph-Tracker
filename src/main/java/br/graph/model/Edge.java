@@ -1,4 +1,4 @@
-package br.radixeng.model;
+package br.graph.model;
 
 public class Edge {
 

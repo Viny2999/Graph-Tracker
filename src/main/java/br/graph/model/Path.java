@@ -1,7 +1,7 @@
-package br.radixeng.model;
+package br.graph.model;
 
 
-import br.radixeng.service.DijkstraService;
+import br.graph.service.DijkstraService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

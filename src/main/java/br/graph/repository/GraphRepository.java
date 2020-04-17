@@ -1,6 +1,6 @@
-package br.radixeng.repository;
+package br.graph.repository;
 
-import br.radixeng.model.GraphList;
+import br.graph.model.GraphList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

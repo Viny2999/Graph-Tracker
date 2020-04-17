@@ -1,7 +1,7 @@
-package br.radixeng.controller;
+package br.graph.controller;
 
-import br.radixeng.model.GraphList;
-import br.radixeng.service.GraphService;
+import br.graph.model.GraphList;
+import br.graph.service.GraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

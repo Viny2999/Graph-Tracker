@@ -1,9 +1,9 @@
-package br.radixeng.controller;
+package br.graph.controller;
 
-import br.radixeng.Application;
-import br.radixeng.model.GraphInfo;
-import br.radixeng.model.GraphList;
-import br.radixeng.repository.GraphRepository;
+import br.graph.Application;
+import br.graph.model.GraphInfo;
+import br.graph.model.GraphList;
+import br.graph.repository.GraphRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

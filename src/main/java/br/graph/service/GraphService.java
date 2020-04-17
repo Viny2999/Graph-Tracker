@@ -1,7 +1,7 @@
-package br.radixeng.service;
+package br.graph.service;
 
-import br.radixeng.model.*;
-import br.radixeng.repository.GraphRepository;
+import br.graph.model.*;
+import br.graph.repository.GraphRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
