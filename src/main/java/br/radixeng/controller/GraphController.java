@@ -1,6 +1,6 @@
 package br.radixeng.controller;
 
-import br.radixeng.model.GraphArray;
+import br.radixeng.model.GraphList;
 import br.radixeng.service.GraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,12 +21,12 @@ public class GraphController {
     }
 
     @GetMapping(path = {"/{id}"})
-    public ResponseEntity<GraphArray> findById(@PathVariable long id) {
+    public ResponseEntity<GraphList> findById(@PathVariable long id) {
        return graphService.findById(id);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GraphArray> create(@RequestBody GraphArray data) {
+    public ResponseEntity<GraphList> create(@RequestBody GraphList data) {
         return graphService.create(data);
     }
 }

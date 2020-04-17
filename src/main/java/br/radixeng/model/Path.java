@@ -37,17 +37,17 @@ public class Path {
         adjList[u].add(v);
     }
 
-    public String findAllPaths(GraphArray graphArray, List<Graph> graphDistinct, String v1, String v2, Long maxStops) throws JSONException {
+    public String findAllPaths(GraphList graphList, List<GraphInfo> graphInfoDistinct, String v1, String v2, Long maxStops) throws JSONException {
         Map<String, Integer> mapInteger = new HashMap<>();
         Map<Integer, String> mapString = new HashMap<>();
 
-        for (int i = 0; i < graphDistinct.size(); i++) {
-            mapInteger.put(graphDistinct.get(i).getSource(), i);
-            mapString.put(i, graphDistinct.get(i).getSource());
+        for (int i = 0; i < graphInfoDistinct.size(); i++) {
+            mapInteger.put(graphInfoDistinct.get(i).getSource(), i);
+            mapString.put(i, graphInfoDistinct.get(i).getSource());
         }
 
-        for (Graph graph :graphArray.getData()) {
-            addEdge(mapInteger.get(graph.getSource()), mapInteger.get(graph.getTarget()));
+        for (GraphInfo graphInfo : graphList.getData()) {
+            addEdge(mapInteger.get(graphInfo.getSource()), mapInteger.get(graphInfo.getTarget()));
         }
 
         printAllPaths(mapInteger.get(v1), mapInteger.get(v2), mapString);

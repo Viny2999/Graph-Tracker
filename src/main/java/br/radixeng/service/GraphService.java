@@ -2,7 +2,6 @@ package br.radixeng.service;
 
 import br.radixeng.model.*;
 import br.radixeng.repository.GraphRepository;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,9 @@ public class GraphService {
         }
     }
 
-    public ResponseEntity<GraphArray> findById(long id) {
+    public ResponseEntity<GraphList> findById(long id) {
         try {
-            Optional<GraphArray> graphOptional = repository.findById(id);
+            Optional<GraphList> graphOptional = repository.findById(id);
             return graphOptional.isPresent() ?
                     ResponseEntity.ok(graphOptional.get()) :
                     ResponseEntity.notFound().build();
@@ -38,8 +37,8 @@ public class GraphService {
         }
     }
 
-    public ResponseEntity<GraphArray> create(GraphArray graph) {
-        GraphArray graphResponse;
+    public ResponseEntity<GraphList> create(GraphList graph) {
+        GraphList graphResponse;
         try {
             graphResponse = repository.save(graph);
         } catch (Exception e) {
@@ -51,12 +50,12 @@ public class GraphService {
 
     public ResponseEntity getAvailableRoute(long id, String town1, String town2, Long maxStops) {
         try {
-            Optional<GraphArray> graphOptional = repository.findById(id);
+            Optional<GraphList> graphOptional = repository.findById(id);
             if(graphOptional.isPresent()) {
-                List<Graph> graphDistinct = graphOptional.get().getData().stream().filter(dijkstraService.distinctByKey(v -> v.getSource())).collect(Collectors.toList());
-                int size = graphDistinct.size();
+                List<GraphInfo> graphInfoDistinct = graphOptional.get().getData().stream().filter(dijkstraService.distinctByKey(v -> v.getSource())).collect(Collectors.toList());
+                int size = graphInfoDistinct.size();
                 Path path = new Path(size);
-                return ResponseEntity.ok(path.findAllPaths(graphOptional.get(), graphDistinct, town1, town2, maxStops));
+                return ResponseEntity.ok(path.findAllPaths(graphOptional.get(), graphInfoDistinct, town1, town2, maxStops));
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -67,7 +66,7 @@ public class GraphService {
 
     public ResponseEntity minimumRoute(long id, String town1, String town2) {
         try {
-            Optional<GraphArray> graphOptional = repository.findById(id);
+            Optional<GraphList> graphOptional = repository.findById(id);
             if(graphOptional.isPresent()) {
                 String minimumRoute = dijkstraService.executeDijkstra(graphOptional.get(), town1, town2);
                 return ResponseEntity.ok(minimumRoute);

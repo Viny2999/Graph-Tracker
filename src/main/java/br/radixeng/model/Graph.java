@@ -1,38 +1,30 @@
 package br.radixeng.model;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
 public class Graph {
 
-    @Id @GeneratedValue
-    private Long id;
+    private List<Vertex> graph = new ArrayList<Vertex>();
 
-    private String source;
-    private String target;
-    private Long distance;
-
-    public String getSource() {
-        return source;
+    public void setVertex(List<Vertex> vertexs) {
+        this.graph.addAll(vertexs);
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void addVertex(Vertex newVertex) {
+        this.graph.add(newVertex);
     }
 
-    public String getTarget() {
-        return target;
+    public List<Vertex> getVertex() {
+        return this.graph;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public Long getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Long distance) {
-        this.distance = distance;
+    public Vertex findVertex(String nome) {
+        for (int i = 0; i < this.getVertex().size(); i++) {
+            if (nome.equalsIgnoreCase(this.getVertex().get(i).getDescription())) {
+                return this.getVertex().get(i);
+            }
+        }
+        return null;
     }
 }

@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class GraphArray {
+public class GraphList {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @OneToMany(cascade= CascadeType.ALL)
-    private List<Graph> data;
+    private List<GraphInfo> data;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class GraphArray {
         this.id = id;
     }
 
-    public List<Graph> getData() {
+    public List<GraphInfo> getData() {
         return data;
     }
 
-    public void setData(List<Graph> data) {
+    public void setData(List<GraphInfo> data) {
         this.data = data;
     }
 }
