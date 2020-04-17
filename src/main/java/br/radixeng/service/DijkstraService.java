@@ -72,13 +72,13 @@ public class DijkstraService {
     }
 
     private List<Vertex> minimumRoute(Graph graph, Vertex v1, Vertex v2) {
-        List<Vertex> menorCaminho = new ArrayList<Vertex>();
-        Vertex vertexCaminho = new Vertex();
-        Vertex atual = new Vertex();
-        Vertex vizinho = new Vertex();
-        List<Vertex> naoVisitados = new ArrayList<Vertex>();
+        List<Vertex> minimumRoute = new ArrayList<Vertex>();
+        Vertex vertexRoute = new Vertex();
+        Vertex now = new Vertex();
+        Vertex neighbor = new Vertex();
+        List<Vertex> noVisited = new ArrayList<Vertex>();
 
-        menorCaminho.add(v1);
+        minimumRoute.add(v1);
 
 		for (int i = 0; i < graph.getVertex().size(); i++) {
 			if (graph.getVertex().get(i).getDescription().equals(v1.getDescription())) {
@@ -86,38 +86,38 @@ public class DijkstraService {
 			} else {
 				graph.getVertex().get(i).setDistance(9999);
 			}
-			naoVisitados.add(graph.getVertex().get(i));
+			noVisited.add(graph.getVertex().get(i));
 		}
 
-		Collections.sort(naoVisitados);
+		Collections.sort(noVisited);
 
-		while (!naoVisitados.isEmpty()) {
-            atual = naoVisitados.get(0);
-			for (int i = 0; i < atual.getEdges().size(); i++) {
-				vizinho = atual.getEdges().get(i).getDestination();
-				if (!vizinho.getVisited()) {
-					if (vizinho.getDistance() > (atual.getDistance() + atual.getEdges().get(i).getWeight())) {
-						vizinho.setDistance(atual.getDistance() + atual.getEdges().get(i).getWeight());
-						vizinho.setFather(atual);
+		while (!noVisited.isEmpty()) {
+            now = noVisited.get(0);
+			for (int i = 0; i < now.getEdges().size(); i++) {
+				neighbor = now.getEdges().get(i).getDestination();
+				if (!neighbor.getVisited()) {
+					if (neighbor.getDistance() > (now.getDistance() + now.getEdges().get(i).getWeight())) {
+						neighbor.setDistance(now.getDistance() + now.getEdges().get(i).getWeight());
+						neighbor.setFather(now);
 
-						if (vizinho == v2) {
-							menorCaminho.clear();
-							vertexCaminho = vizinho;
-							menorCaminho.add(vizinho);
-							while (vertexCaminho.getFather() != null) {
-								menorCaminho.add(vertexCaminho.getFather());
-								vertexCaminho = vertexCaminho.getFather();
+						if (neighbor == v2) {
+							minimumRoute.clear();
+							vertexRoute = neighbor;
+							minimumRoute.add(neighbor);
+							while (vertexRoute.getFather() != null) {
+								minimumRoute.add(vertexRoute.getFather());
+								vertexRoute = vertexRoute.getFather();
 							}
-							Collections.sort(menorCaminho);
+							Collections.sort(minimumRoute);
 						}
 					}
 				}
 			}
-			atual.setVisited();
-			naoVisitados.remove(atual);
-			Collections.sort(naoVisitados);
+			now.setVisited();
+			noVisited.remove(now);
+			Collections.sort(noVisited);
 		}
-		return menorCaminho;
+		return minimumRoute;
     }
 
     public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
